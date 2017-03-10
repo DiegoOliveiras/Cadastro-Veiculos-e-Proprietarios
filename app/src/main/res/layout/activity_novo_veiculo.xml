@@ -54,4 +54,22 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/btn_Ok" />
 
+    <TextView
+        android:text="Selecione o Proprietário:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@+id/txt_Ano"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_Proprietarios"
+        android:layout_above="@+id/btn_Ok"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView" />
+
 </RelativeLayout>

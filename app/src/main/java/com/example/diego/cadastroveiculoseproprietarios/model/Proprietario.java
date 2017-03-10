@@ -1,6 +1,7 @@
 package com.example.diego.cadastroveiculoseproprietarios.model;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Unique;
 
 import java.util.Date;
 
@@ -9,20 +10,31 @@ import java.util.Date;
  */
 
 public class Proprietario extends SugarRecord {
+    @Unique
+    private Long id;
+
     private String nome;
     private String endereco;
     private String telefone;
     private String data;
 
-    public Proprietario(){
-
-    }
+    public Proprietario(){}
 
     public Proprietario(String nome, String endereco, String telefone, String data){
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
         this.data = data;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
