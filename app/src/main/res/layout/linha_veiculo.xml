@@ -21,15 +21,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/ano" />
 
-    <TextView
-        android:text="nome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nome" />
-
-    <TextView
-        android:text="telefone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/telefone" />
 </LinearLayout>

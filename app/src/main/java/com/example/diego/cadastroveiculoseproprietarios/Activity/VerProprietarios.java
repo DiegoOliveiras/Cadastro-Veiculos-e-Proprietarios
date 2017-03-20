@@ -1,4 +1,4 @@
-package com.example.diego.cadastroveiculoseproprietarios;
+package com.example.diego.cadastroveiculoseproprietarios.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.diego.cadastroveiculoseproprietarios.R;
 import com.example.diego.cadastroveiculoseproprietarios.adapter.ProprietarioAdapter;
 import com.example.diego.cadastroveiculoseproprietarios.model.Proprietario;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VerProprietarios extends AppCompatActivity {
 
@@ -46,8 +46,15 @@ public class VerProprietarios extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int i, long l) {
-                Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome(),
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(VerProprietarios.this, EditarProprietario.class);
+                intent.putExtra("id",proprietarios.get(i).getId().toString());
+                intent.putExtra("nome",proprietarios.get(i).getNome().toString());
+                intent.putExtra("endereco",proprietarios.get(i).getEndereco().toString());
+                intent.putExtra("data",proprietarios.get(i).getData().toString());
+                intent.putExtra("telefone",proprietarios.get(i).getTelefone().toString());
+
+                startActivity(intent);
+                //Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome(), Toast.LENGTH_SHORT).show();
             }
         });
 

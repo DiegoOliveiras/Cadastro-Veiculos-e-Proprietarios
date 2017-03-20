@@ -1,4 +1,4 @@
-package com.example.diego.cadastroveiculoseproprietarios;
+package com.example.diego.cadastroveiculoseproprietarios.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.diego.cadastroveiculoseproprietarios.R;
 import com.example.diego.cadastroveiculoseproprietarios.adapter.ProprietarioAdapter;
 import com.example.diego.cadastroveiculoseproprietarios.model.Proprietario;
 import com.example.diego.cadastroveiculoseproprietarios.model.Veiculo;
@@ -55,9 +56,16 @@ public class NovoVeiculo extends AppCompatActivity {
         btn_Ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Veiculo v = new Veiculo(txt_Modelo.getText().toString(), txt_Ano.getText().toString(), txt_Placa.getText().toString(), p);
-                v.save();
-                Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                if (p != null) {
+                    Veiculo v = new Veiculo(txt_Modelo.getText().toString(), txt_Ano.getText().toString(), txt_Placa.getText().toString(), p);
+                    if (v.proprietario != null){
+                        v.save();
+                        Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "proprietario null", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

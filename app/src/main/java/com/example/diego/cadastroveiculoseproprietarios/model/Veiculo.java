@@ -1,20 +1,22 @@
 package com.example.diego.cadastroveiculoseproprietarios.model;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Table;
 import com.orm.dsl.Unique;
 
 /**
  * Created by Diego on 10/03/2017.
  */
 
-public class Veiculo extends SugarRecord {
-    @Unique
+@Table
+public class Veiculo extends SugarRecord{
     private Long id;
 
     private String placa;
     private String modelo;
     private String ano;
-    private Proprietario proprietario;
+
+    public Proprietario proprietario;
 
     public Veiculo(){}
 
@@ -25,14 +27,9 @@ public class Veiculo extends SugarRecord {
         this.proprietario = proprietario;
     }
 
-    @Override
+
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPlaca() {
