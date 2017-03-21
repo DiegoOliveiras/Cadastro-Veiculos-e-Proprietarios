@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.diego.cadastroveiculoseproprietarios.Activity.EditarVeiculo">
+    tools:context="com.example.diego.cadastroveiculoseproprietarios.activity.EditarVeiculo">
 
     <EditText
         android:layout_width="match_parent"
@@ -104,4 +104,12 @@
         android:singleLine="true"
         android:layout_below="@+id/edt_Nome"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Deletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btn_Apagar" />
 </RelativeLayout>

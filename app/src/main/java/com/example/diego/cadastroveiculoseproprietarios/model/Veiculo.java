@@ -16,7 +16,7 @@ public class Veiculo extends SugarRecord{
     private String modelo;
     private String ano;
 
-    public Proprietario proprietario;
+    private Proprietario proprietario;
 
     public Veiculo(){}
 

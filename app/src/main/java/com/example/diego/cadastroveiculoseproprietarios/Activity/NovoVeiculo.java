@@ -1,5 +1,7 @@
-package com.example.diego.cadastroveiculoseproprietarios.Activity;
+package com.example.diego.cadastroveiculoseproprietarios.activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.example.diego.cadastroveiculoseproprietarios.R;
 import com.example.diego.cadastroveiculoseproprietarios.adapter.ProprietarioAdapter;
@@ -23,7 +26,7 @@ public class NovoVeiculo extends AppCompatActivity {
     private Button btn_Ok;
     private ArrayAdapter<Proprietario> adapter;
     //private Proprietario p = new Proprietario();
-    private Proprietario p = new Proprietario();
+    private Proprietario p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,8 @@ public class NovoVeiculo extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int i, long l) {
-                Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome()+" selecionado com sucesso",
-                        Toast.LENGTH_SHORT).show();
-                p = new Proprietario(proprietarios.get(i).getNome(), proprietarios.get(i).getEndereco(), proprietarios.get(i).getTelefone(), proprietarios.get(i).getData());
+                Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome()+" selecionado com sucesso", Toast.LENGTH_SHORT).show();
+                p = Proprietario.findById(Proprietario.class, proprietarios.get(i).getId());
             }
         });
 
@@ -56,17 +58,37 @@ public class NovoVeiculo extends AppCompatActivity {
         btn_Ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (p != null) {
-                    Veiculo v = new Veiculo(txt_Modelo.getText().toString(), txt_Ano.getText().toString(), txt_Placa.getText().toString(), p);
-                    if (v.proprietario != null){
-                        v.save();
-                        Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Toast.makeText(getBaseContext(), "proprietario null", Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(NovoVeiculo.this);
+                builder.setMessage("Cadastrar Veículo?")
+                        .setCancelable(false)
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                if (p != null) {
+                                    Veiculo v = new Veiculo(txt_Modelo.getText().toString(), txt_Ano.getText().toString(), txt_Placa.getText().toString(), p);
+                                    v.save();
+                                    Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(NovoVeiculo.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(getBaseContext(), "Selecione um Proprietario!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){}
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
+    }
+
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(NovoVeiculo.this);
+        Intent intent = new Intent(NovoVeiculo.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

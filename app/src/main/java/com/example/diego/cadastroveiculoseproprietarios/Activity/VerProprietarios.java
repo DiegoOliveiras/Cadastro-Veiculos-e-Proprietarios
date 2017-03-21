@@ -1,4 +1,4 @@
-package com.example.diego.cadastroveiculoseproprietarios.Activity;
+package com.example.diego.cadastroveiculoseproprietarios.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.diego.cadastroveiculoseproprietarios.R;
 import com.example.diego.cadastroveiculoseproprietarios.adapter.ProprietarioAdapter;
@@ -33,6 +32,7 @@ public class VerProprietarios extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(VerProprietarios.this, NovoProprietario.class);
                 startActivity(it);
+                finish();
             }
         });
 
@@ -48,17 +48,19 @@ public class VerProprietarios extends AppCompatActivity {
                                     View view, int i, long l) {
                 Intent intent = new Intent(VerProprietarios.this, EditarProprietario.class);
                 intent.putExtra("id",proprietarios.get(i).getId().toString());
-                intent.putExtra("nome",proprietarios.get(i).getNome().toString());
-                intent.putExtra("endereco",proprietarios.get(i).getEndereco().toString());
-                intent.putExtra("data",proprietarios.get(i).getData().toString());
-                intent.putExtra("telefone",proprietarios.get(i).getTelefone().toString());
 
                 startActivity(intent);
-                //Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome(), Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
         lista.setAdapter(adapter);
 
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(VerProprietarios.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

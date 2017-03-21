@@ -1,6 +1,8 @@
-package com.example.diego.cadastroveiculoseproprietarios.Activity;
+package com.example.diego.cadastroveiculoseproprietarios.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.diego.cadastroveiculoseproprietarios.R;
 import com.example.diego.cadastroveiculoseproprietarios.adapter.VeiculoAdapter;
-import com.example.diego.cadastroveiculoseproprietarios.model.Proprietario;
 import com.example.diego.cadastroveiculoseproprietarios.model.Veiculo;
+import com.example.diego.cadastroveiculoseproprietarios.activity.VerProprietarios;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(MainActivity.this, VerProprietarios.class);
                 startActivity(it);
+                finish();
             }
         });
 
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(MainActivity.this, NovoVeiculo.class);
                 startActivity(it);
+                finish();
             }
         });
 
@@ -51,20 +56,32 @@ public class MainActivity extends AppCompatActivity {
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView,
-                                    View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this,EditarVeiculo.class);
-                intent.putExtra("id",veiculos.get(i).getId().toString());
-                intent.putExtra("modelo",veiculos.get(i).getModelo().toString());
-                intent.putExtra("placa",veiculos.get(i).getPlaca().toString());
-                intent.putExtra("ano",veiculos.get(i).getAno().toString());
-                //intent.putExtra("proprietario",veiculos.get(i).getProprietario().getId().toString());
+                intent.putExtra("id", veiculos.get(i).getId().toString());
+                intent.putExtra("proprietario",veiculos.get(i).getProprietario().getId().toString());
 
                 startActivity(intent);
-                //Toast.makeText(getBaseContext(), "Proprietario: "+proprietarios.get(i).getNome()+" selecionado com sucesso", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
         lista.setAdapter(adapter);
+    }
+
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Sair da Aplicação?")
+                .setCancelable(false)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        finish();
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){}
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
